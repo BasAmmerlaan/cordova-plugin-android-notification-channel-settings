@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	id="cordova-plugin-android-notification-channel-settings"
+	version="0.0.1">
+
+	<name>Notification channel settings</name>
+	<description>Manage Android notification channel settings</description>
+	<license>MIT</license>
+
+	<!-- android -->
+	<platform name="android">
+		<js-module src="www/settings.js" name="NotificationChannelSettings">
+			<clobbers target="cordova.plugin.notificationChannelSettings" />
+		</js-module>
+
+		<source-file src="src/android/NotificationChannelSettings.java" target-dir="src/io/ammerlaan/plugins" />
+
+		<config-file target="res/xml/config.xml" parent="/*">
+			<feature name="NotificationChannelSettings">
+				<param name="android-package" value="io.ammerlaan.plugins.NotificationChannelSettings" />
+			</feature>
+    	</config-file>
+	</platform>
+
+</plugin>

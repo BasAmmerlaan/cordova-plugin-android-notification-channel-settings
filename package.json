@@ -1,0 +1,40 @@
+{
+  "name": "cordova-plugin-android-notification-channel-settings",
+  "version": "0.0.1",
+  "description": "Manage Android notification channel settings",
+  "cordova": {
+    "id": "cordova-plugin-android-notification-channel-settings",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BasAmmerlaan/cordova-plugin-android-notification-channel-settings"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova",
+    "android",
+    "push",
+    "notification",
+    "firebase",
+    "channel",
+    "do-not-disturb"
+  ],
+  "engines": {
+    "cordovaDependencies": {
+      "1.5.0": {
+        "cordova": ">4.0.0"
+      }
+    }
+  },
+  "author": "Bas Ammerlaan <bas@ammerlaan.io>",
+  "contributors": [
+    {
+      "name": "Bas Ammerlaan"
+    }
+  ],
+  "license": "MIT"
+}
