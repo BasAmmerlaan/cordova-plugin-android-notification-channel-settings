@@ -18,11 +18,17 @@ import org.apache.cordova.PluginResult;
 public class NotificationChannelSettings extends CordovaPlugin {
 
     private final int ERROR_CHANNEL_DOES_NOT_EXIST = 0;
-    private final int ERROR_INVALID_SDK = 1;
+    private final int ERROR_UNSUPPORTED_SDK = 1;
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         Context context = this.cordova.getActivity().getApplicationContext();
+
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            PluginResult result = new PluginResult(PluginResult.Status.ERROR, ERROR_UNSUPPORTED_SDK);
+            callbackContext.sendPluginResult(result);
+            return true;
+        }
 
         if (action.equals("getCanBypassDnd")) {
             String channelName = args.getString(0);
@@ -45,20 +51,15 @@ public class NotificationChannelSettings extends CordovaPlugin {
 
             Intent intent = new Intent();
 
-			if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-				intent.setAction(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
-				intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
-                intent.putExtra(Settings.EXTRA_CHANNEL_ID, channelName);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                
-                context.startActivity(intent);
+            intent.setAction(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
+            intent.putExtra(Settings.EXTRA_CHANNEL_ID, channelName);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            
+            context.startActivity(intent);
 
-                PluginResult result = new PluginResult(PluginResult.Status.OK);
-                callbackContext.sendPluginResult(result);
-			} else {
-                PluginResult result = new PluginResult(PluginResult.Status.ERROR, ERROR_INVALID_SDK);
-                callbackContext.sendPluginResult(result);
-            }
+            PluginResult result = new PluginResult(PluginResult.Status.OK);
+            callbackContext.sendPluginResult(result);
 
             return true;
         }
